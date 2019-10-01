@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Sep 30 17:42:13 ART 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-016d-83e8-c507-0000035799f0 
+on database directory C:\Users\Natalia\Documents\sergio\arq web\Practico-Jersey\MyDataBase with class loader sun.misc.Launcher$AppClassLoader@6b884d57 
+Loaded from file:/C:/Users/Natalia/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_221-b11
+user.dir=C:\Users\Natalia\eclipse-workspace2\Practico-Especial
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
