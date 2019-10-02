@@ -13,8 +13,8 @@ public class PuntoLimpio {
 
 	String nombre;
 	int kgTope;
-	float longitud;
-	float latitud;
+	int KgAcumulados;
+	Ubicacion geoposicion;
 
 	public PuntoLimpio() {
 		
@@ -37,24 +37,25 @@ public class PuntoLimpio {
 	public int getKgTope() {
 		return this.kgTope;
 	}
-	public float getLongitud() {
-		return longitud;
+	public int getKgAcumulados() {
+		return KgAcumulados;
 	}
-
-	public void setLongitud(float longitud) {
-		this.longitud = longitud;
+	public void setKgAcumulados(int kgAcumulados) {
+		KgAcumulados += kgAcumulados;
 	}
-
-	public float getLatitud() {
-		return latitud;
+	public void setKgAcumuladosaCero() {
+		this.KgAcumulados=0;
 	}
-
-	public void setLatitud(float latitud) {
-		this.latitud = latitud;
+	public Ubicacion getGeoposicion() {
+		return geoposicion;
+	}
+	public void setGeoposicion(Ubicacion geoposicion) {
+		this.geoposicion = geoposicion;
 	}
 	@Override
 	public String toString() {
-		return "PuntoLimpio [id=" + id + ", nombre=" + nombre + ", longitud=" + longitud + ", latitud=" + latitud + "]";
+		return "PuntoLimpio [id=" + id + ", nombre=" + nombre + ", kgTope=" + kgTope + ", KgAcumulados=" + KgAcumulados
+				+ ", geoposicion=" + geoposicion + "]";
 	}
 	
 }

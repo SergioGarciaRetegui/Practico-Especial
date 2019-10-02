@@ -45,6 +45,13 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 		return PuntoLimpios;
 	}
 
+	public boolean capacidadAlcanzada(int id) {
+		EntityManager entityManager=EMF.createEntityManager();
+		PuntoLimpio pl=entityManager.find(PuntoLimpio.class, id);
+		entityManager.close();
+		return pl.getKgAcumulados()>= pl.getKgTope();
+	}
+
 	@Override
 	public boolean delete(Integer id) {
 		throw new UnsupportedOperationException();

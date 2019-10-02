@@ -12,21 +12,22 @@ public class Camion {
 	
 	String patente;
 	String marca;
-	long latitud;
-	long longitud;
+	int capacidad;
+	int capActual;
+	Ubicacion geoposicion;
 	boolean activo;
 
 	public Camion() {
 		super();
 	}
 
-	public Camion(int id, String patente, String marca, long latitud, long longitud, boolean activo) {
+	public Camion(String patente, String marca, int capacidad, int capActual, Ubicacion geoposicion, boolean activo) {
 		super();
-		this.id = id;
 		this.patente = patente;
 		this.marca = marca;
-		this.latitud = latitud;
-		this.longitud = longitud;
+		this.capacidad = capacidad;
+		this.capActual = capActual;
+		this.geoposicion = geoposicion;
 		this.activo = activo;
 	}
 	
@@ -45,23 +46,38 @@ public class Camion {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-	public long getLatitud() {
-		return latitud;
-	}
-	public void setLatitud(long latitud) {
-		this.latitud = latitud;
-	}
-	public long getLongitud() {
-		return longitud;
-	}
-	public void setLongitud(long longitud) {
-		this.longitud = longitud;
-	}
 	public boolean isActivo() {
 		return activo;
 	}
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public int getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public int getCapActual() {
+		return capActual;
+	}
+
+	public void setCapActual(int capActual) {
+		this.capActual += capActual;
+	}
+	public void setCapActualaCero(int capActual) {
+		this.capActual =0;
+	}
+
+	public Ubicacion getGeoposicion() {
+		return geoposicion;
+	}
+
+	public void setGeoposicion(Ubicacion geoposicion) {
+		this.geoposicion = geoposicion;
 	}
 	
 

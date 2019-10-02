@@ -16,12 +16,11 @@ public class Usuario {
     String email;
     String calle;
     int numero;
-    float latitud;
-    float longitud;
+    Ubicacion geoposicion;
     
     public Usuario() {
     }
-    public Usuario(int id, int dni,String nom, String apellido, String email, String calle, int num, float lat, float Long) {
+    public Usuario(int id, int dni,String nom, String apellido, String email, String calle, int num, Ubicacion geop) {
       this.id=id;
       this.dni=dni;
       this.nombre=nom;
@@ -29,8 +28,7 @@ public class Usuario {
       this.email=email;
       this.calle=calle;
       this.numero=num;
-      this.latitud=lat;
-      this.longitud=Long;
+      this.geoposicion=geop;
     }
     public int getId() {
     	return this.id;
@@ -71,23 +69,16 @@ public class Usuario {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public float getLatitud() {
-		return latitud;
+	public Ubicacion getGeoposicion() {
+		return this.geoposicion;
 	}
-	public void setLatitud(float latitud) {
-		this.latitud = latitud;
-	}
-	public float getLongitud() {
-		return longitud;
-	}
-	public void setLongitud(float longitud) {
-		this.longitud = longitud;
+	public void setGeoposicion(Ubicacion geop) {
+		this.geoposicion = geop;
 	}
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", email="
-				+ email + ", calle=" + calle + ", numero=" + numero + ", latitud=" + latitud + ", longitud=" + longitud
-				+ "]";
+				+ email + ", calle=" + calle + ", numero=" + numero + ", geoposicion=" + geoposicion + "]";
 	}
 
 }

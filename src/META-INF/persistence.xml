@@ -16,7 +16,7 @@
 
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:derby:C:/Users/Natalia/Documents/sergio/arq web/Practico-Jersey/MyDataBase;create=true" />
-			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
 			
 
 		</properties>
