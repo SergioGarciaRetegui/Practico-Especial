@@ -58,6 +58,14 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 		return resid;
 	}	
 
+	public List<Acopio> historialByIdPuntoLimpio(Integer id){
+		EntityManager entityManager=EMF.createEntityManager();
+		List<Acopio> acopios=entityManager.createQuery("SELECT a FROM Acopio a INNER JOIN a.puntlimpio p WHERE p.id= :idPL").setParameter("idPL", id).getResultList();
+		entityManager.close();
+		return acopios;
+	}	
+
+	
 	@Override
 	public Acopio persist(Acopio acopio) {
 		EntityManager entityManager=EMF.createEntityManager();
