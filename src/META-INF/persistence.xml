@@ -10,6 +10,7 @@
 		<class>com.practicoEspecial.Recoleccion</class>
 		<class>com.practicoEspecial.Residuo</class>
 		<class>com.practicoEspecial.Acopio</class>
+		<class>com.practicoEspecial.Ubicacion</class>
 			
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
