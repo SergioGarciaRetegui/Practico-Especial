@@ -3,6 +3,8 @@ package com.practicoEspecial;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 @Entity
 
 public class Camion {
@@ -14,6 +16,9 @@ public class Camion {
 	String marca;
 	int capacidad;
 	int capActual;
+
+	@OneToOne
+    @JoinColumn(name="ubicacion_id")
 	Ubicacion geoposicion;
 	boolean activo;
 
@@ -68,7 +73,7 @@ public class Camion {
 	public void setCapActual(int capActual) {
 		this.capActual += capActual;
 	}
-	public void setCapActualaCero(int capActual) {
+	public void setCapActualaCero() {
 		this.capActual =0;
 	}
 
@@ -78,6 +83,12 @@ public class Camion {
 
 	public void setGeoposicion(Ubicacion geoposicion) {
 		this.geoposicion = geoposicion;
+	}
+
+	@Override
+	public String toString() {
+		return "Camion [id=" + id + ", patente=" + patente + ", marca=" + marca + ", capacidad=" + capacidad
+				+ ", capActual=" + capActual + ", geoposicion=" + geoposicion + ", activo=" + activo + "]";
 	}
 	
 

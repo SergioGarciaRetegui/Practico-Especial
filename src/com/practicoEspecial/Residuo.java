@@ -12,6 +12,7 @@ public class Residuo {
 	int id;
 	
 	String nombre;
+	float valorKg;
 
 	public Residuo() {
 	}
@@ -27,7 +28,13 @@ public class Residuo {
 	}
 	@Override
 	public String toString() {
-		return "Residuo [id=" + id + ", nombre=" + nombre + "]";
+		return "Residuo [id=" + id + ", nombre=" + nombre + ", ValorKg=" + valorKg + "]";
+	}
+	public float getValorKg() {
+		return valorKg;
+	}
+	public void setValorKg(float valorKg) {
+		this.valorKg = valorKg;
 	}
 
 }

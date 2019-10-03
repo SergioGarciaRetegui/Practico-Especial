@@ -3,6 +3,8 @@ package com.practicoEspecial;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class PuntoLimpio {
@@ -14,6 +16,11 @@ public class PuntoLimpio {
 	String nombre;
 	int kgTope;
 	int KgAcumulados;
+	String Calle;
+	int numero;
+
+	@OneToOne
+    @JoinColumn(name="ubicacion_id")
 	Ubicacion geoposicion;
 
 	public PuntoLimpio() {
@@ -52,10 +59,22 @@ public class PuntoLimpio {
 	public void setGeoposicion(Ubicacion geoposicion) {
 		this.geoposicion = geoposicion;
 	}
+	public String getCalle() {
+		return Calle;
+	}
+	public void setCalle(String calle) {
+		Calle = calle;
+	}
+	public int getNumero() {
+		return numero;
+	}
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 	@Override
 	public String toString() {
 		return "PuntoLimpio [id=" + id + ", nombre=" + nombre + ", kgTope=" + kgTope + ", KgAcumulados=" + KgAcumulados
-				+ ", geoposicion=" + geoposicion + "]";
+				+ ", Calle=" + Calle + ", numero=" + numero + ", geoposicion=" + geoposicion + "]";
 	}
 	
 }

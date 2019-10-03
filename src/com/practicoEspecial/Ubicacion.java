@@ -1,9 +1,17 @@
 package com.practicoEspecial;
 
-public class Ubicacion {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-		private float longitud;
-	private float latitud;
+@Entity
+public class Ubicacion {
+	@Id
+	@GeneratedValue
+	int id;
+
+	private double latitud;
+	private double longitud;
 	public Ubicacion() {
 		super();
 	}
@@ -13,16 +21,16 @@ public class Ubicacion {
 		this.latitud = latitud;
 	}
 
-	public float getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(float longitud) {
+	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
-	public float getLatitud() {
+	public double getLatitud() {
 		return latitud;
 	}
-	public void setLatitud(float latitud) {
+	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
 	public double distancia(Ubicacion u) {
@@ -30,7 +38,7 @@ public class Ubicacion {
 	}
 	@Override
 	public String toString() {
-		return "Ubicacion [longitud=" + longitud + ", latitud=" + latitud + "]";
+		return "Ubicacion [id=" + id + ", longitud=" + longitud + ", latitud=" + latitud + "]";
 	}
 	
 	

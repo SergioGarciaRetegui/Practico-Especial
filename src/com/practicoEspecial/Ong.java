@@ -38,6 +38,11 @@ public class Ong {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	@Override
+	public String toString() {
+		return "Ong [id=" + id + ", nombre=" + nombre + "]";
+	}
 	
 	
 }

@@ -3,6 +3,8 @@ package com.practicoEspecial;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario {
@@ -16,6 +18,9 @@ public class Usuario {
     String email;
     String calle;
     int numero;
+
+    @OneToOne
+    @JoinColumn(name="ubicacion_id")
     Ubicacion geoposicion;
     
     public Usuario() {
@@ -70,10 +75,10 @@ public class Usuario {
 		this.numero = numero;
 	}
 	public Ubicacion getGeoposicion() {
-		return this.geoposicion;
+		return geoposicion;
 	}
-	public void setGeoposicion(Ubicacion geop) {
-		this.geoposicion = geop;
+	public void setGeoposicion(Ubicacion geoposicion) {
+		this.geoposicion = geoposicion;
 	}
 	@Override
 	public String toString() {

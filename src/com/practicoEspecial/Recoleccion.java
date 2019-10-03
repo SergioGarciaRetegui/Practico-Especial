@@ -14,7 +14,7 @@ public class Recoleccion {
 
 	@Id
 	@GeneratedValue
-	int Id;
+	int id;
 	
 	Date horaInic;
 	Date horaFin;
@@ -28,9 +28,8 @@ public class Recoleccion {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Recoleccion(int id, Date horaInic, Date horaFin, String dia, PuntoLimpio pointL) {
+	public Recoleccion(Date horaInic, Date horaFin, String dia, PuntoLimpio pointL) {
 		super();
-		Id = id;
 		this.horaInic = horaInic;
 		this.horaFin = horaFin;
 		this.dia = dia;
