@@ -3,8 +3,7 @@ package com.practicoEspecial;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Usuario {
@@ -19,13 +18,13 @@ public class Usuario {
     String calle;
     int numero;
 
-    @OneToOne
-    @JoinColumn(name="ubicacion_id")
-    Ubicacion geoposicion;
+    Double latGeoposicion;
+    Double longGeoposicion;
+
     
     public Usuario() {
     }
-    public Usuario(int id, int dni,String nom, String apellido, String email, String calle, int num, Ubicacion geop) {
+    public Usuario(int id, int dni,String nom, String apellido, String email, String calle, int num, Double  lat,Double Longi) {
       this.id=id;
       this.dni=dni;
       this.nombre=nom;
@@ -33,7 +32,8 @@ public class Usuario {
       this.email=email;
       this.calle=calle;
       this.numero=num;
-      this.geoposicion=geop;
+      this.latGeoposicion=lat;
+      this.longGeoposicion=Longi;
     }
     public int getId() {
     	return this.id;
@@ -74,16 +74,27 @@ public class Usuario {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public Ubicacion getGeoposicion() {
-		return geoposicion;
+	public Double getLatGeoposicion() {
+		return latGeoposicion;
 	}
-	public void setGeoposicion(Ubicacion geoposicion) {
-		this.geoposicion = geoposicion;
+	public void setLatGeoposicion(Double latGeoposicion) {
+		this.latGeoposicion = latGeoposicion;
 	}
+	public Double getLongGeoposicion() {
+		return longGeoposicion;
+	}
+	public void setLongGeoposicion(Double longGeoposicion) {
+		this.longGeoposicion = longGeoposicion;
+	}
+	public double geoDistancia(Double lat,Double longi) {
+		return Math.sqrt(Math.pow(Math.abs(lat-this.getLatGeoposicion()), 2)+Math.pow(Math.abs(longi-this.getLongGeoposicion()), 2));
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", email="
-				+ email + ", calle=" + calle + ", numero=" + numero + ", geoposicion=" + geoposicion + "]";
+				+ email + ", calle=" + calle + ", numero=" + numero + ", latGeoposicion=" + latGeoposicion
+				+ ", longGeoposicion=" + longGeoposicion + "]";
 	}
 
 }

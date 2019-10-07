@@ -1,5 +1,6 @@
 package com.practicoEspecial;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -39,15 +40,20 @@ public class CamionDAO implements DAO<Camion,Integer>{
 
 	@Override
 	public List<Camion> findAll() {
-		EntityManager entityManager=EMF.createEntityManager();
+		EntityManager entityManager=EMF.createEntityManager();		
 		List<Camion> Camions=entityManager.createQuery("SELECT c FROM Camion c").getResultList();
 		entityManager.close();
 		return Camions;
 	}
-
 	@Override
 	public boolean delete(Integer id) {
-		throw new UnsupportedOperationException();
+		EntityManager entityManager=EMF.createEntityManager();
+		Camion camion=entityManager.find(Camion.class, id);
+		entityManager.getTransaction().begin();
+        entityManager.remove(camion);
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
 	@Override

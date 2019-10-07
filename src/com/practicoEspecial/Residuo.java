@@ -12,7 +12,7 @@ public class Residuo {
 	int id;
 	
 	String nombre;
-	float valorKg;
+	double valorKg;
 
 	public Residuo() {
 	}
@@ -30,10 +30,10 @@ public class Residuo {
 	public String toString() {
 		return "Residuo [id=" + id + ", nombre=" + nombre + ", ValorKg=" + valorKg + "]";
 	}
-	public float getValorKg() {
+	public double getValorKg() {
 		return valorKg;
 	}
-	public void setValorKg(float valorKg) {
+	public void setValorKg(double valorKg) {
 		this.valorKg = valorKg;
 	}
 

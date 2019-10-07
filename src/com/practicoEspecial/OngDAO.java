@@ -47,7 +47,13 @@ public class OngDAO  implements DAO<Ong,Integer>{
 
 	@Override
 	public boolean delete(Integer id) {
-		throw new UnsupportedOperationException();
+		EntityManager entityManager=EMF.createEntityManager();
+		Ong ong=entityManager.find(Ong.class, id);
+		entityManager.getTransaction().begin();
+        entityManager.remove(ong);
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
 	@Override

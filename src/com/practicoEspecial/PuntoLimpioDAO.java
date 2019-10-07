@@ -54,7 +54,13 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 
 	@Override
 	public boolean delete(Integer id) {
-		throw new UnsupportedOperationException();
+		EntityManager entityManager=EMF.createEntityManager();
+		PuntoLimpio pl=entityManager.find(PuntoLimpio.class, id);
+		entityManager.getTransaction().begin();
+        entityManager.remove(pl);
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
 	@Override

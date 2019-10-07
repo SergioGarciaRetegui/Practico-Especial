@@ -30,18 +30,11 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 	}
 
 	public List<Acopio> findByIdUsuario(Integer id) {
-/*        List<Acopio> result=new ArrayList<Acopio>();
-        Acopio aux;*/
-		EntityManager entityManager=EMF.createEntityManager();
-		List<Acopio> Acopios=entityManager.createQuery("SELECT a FROM Acopio a INNER JOIN a.user u WHERE u.id= :idUser ").setParameter("idUser", id).getResultList();
-/*		for(int x=0;x<Acopios.size();x++) {
-			aux=Acopios.get(x);
-			if (aux.user.getId()==id) {
-				result.add(aux);
-			}
-		}*/
+        List<Acopio> result=new ArrayList<Acopio>();
+ 		EntityManager entityManager=EMF.createEntityManager();
+		result=entityManager.createQuery("SELECT a FROM Acopio a INNER JOIN a.user u WHERE u.id = :idUser ").setParameter("idUser", id).getResultList();
 		entityManager.close();
-		return Acopios;
+		return result;
 	}
 
 	public List<Acopio> findByIdUsuarioAndfechas(Integer id,Date FechaI, Date FechaF){
@@ -86,7 +79,13 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 
 	@Override
 	public boolean delete(Integer id) {
-		throw new UnsupportedOperationException();
+		EntityManager entityManager=EMF.createEntityManager();
+		Acopio acopio=entityManager.find(Acopio.class, id);
+		entityManager.getTransaction().begin();
+        entityManager.remove(acopio);
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
 	@Override

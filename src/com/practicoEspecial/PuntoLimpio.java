@@ -3,8 +3,7 @@ package com.practicoEspecial;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class PuntoLimpio {
@@ -13,15 +12,15 @@ public class PuntoLimpio {
 	@GeneratedValue
 	int id;
 
+	
 	String nombre;
 	int kgTope;
 	int KgAcumulados;
 	String Calle;
 	int numero;
 
-	@OneToOne
-    @JoinColumn(name="ubicacion_id")
-	Ubicacion geoposicion;
+    Double latGeoposicion;
+    Double longGeoposicion;
 
 	public PuntoLimpio() {
 		
@@ -53,12 +52,6 @@ public class PuntoLimpio {
 	public void setKgAcumuladosaCero() {
 		this.KgAcumulados=0;
 	}
-	public Ubicacion getGeoposicion() {
-		return geoposicion;
-	}
-	public void setGeoposicion(Ubicacion geoposicion) {
-		this.geoposicion = geoposicion;
-	}
 	public String getCalle() {
 		return Calle;
 	}
@@ -71,10 +64,26 @@ public class PuntoLimpio {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
+	public Double getLatGeoposicion() {
+		return latGeoposicion;
+	}
+	public void setLatGeoposicion(Double latgeoposicion) {
+		latGeoposicion = latgeoposicion;
+	}
+	public Double getLongGeoposicion() {
+		return longGeoposicion;
+	}
+	public void setLongGeoposicion(Double longeoposicion) {
+		longGeoposicion = longeoposicion;
+	}
+	public double geoDistancia(Double lat,Double longi) {
+		return Math.sqrt(Math.pow(Math.abs(lat-this.getLatGeoposicion()), 2)+Math.pow(Math.abs(longi-this.getLongGeoposicion()), 2));
+	}
+
 	@Override
 	public String toString() {
 		return "PuntoLimpio [id=" + id + ", nombre=" + nombre + ", kgTope=" + kgTope + ", KgAcumulados=" + KgAcumulados
-				+ ", Calle=" + Calle + ", numero=" + numero + ", geoposicion=" + geoposicion + "]";
+				+ ", Calle=" + Calle + ", numero=" + numero + ", Latgeoposicion=" + latGeoposicion + ", Longeoposicion="
+				+ longGeoposicion + "]";
 	}
-	
 }

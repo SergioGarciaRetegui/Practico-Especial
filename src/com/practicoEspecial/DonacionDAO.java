@@ -47,7 +47,13 @@ public class DonacionDAO  implements DAO<Donacion,Integer>{
 
 	@Override
 	public boolean delete(Integer id) {
-		throw new UnsupportedOperationException();
+		EntityManager entityManager=EMF.createEntityManager();
+		Donacion don=entityManager.find(Donacion.class, id);
+		entityManager.getTransaction().begin();
+        entityManager.remove(don);
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
 	@Override

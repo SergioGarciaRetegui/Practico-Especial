@@ -60,7 +60,13 @@ public class ResiduoDAO implements DAO<Residuo,Integer>{
 
 	@Override
 	public boolean delete(Integer id) {
-		throw new UnsupportedOperationException();
+		EntityManager entityManager=EMF.createEntityManager();
+		Residuo res=entityManager.find(Residuo.class, id);
+		entityManager.getTransaction().begin();
+        entityManager.remove(res);
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
 	@Override

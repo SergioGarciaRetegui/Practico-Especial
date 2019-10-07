@@ -1,10 +1,15 @@
 package com.practicoEspecial;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 @Entity
 
 public class Camion {
@@ -12,30 +17,22 @@ public class Camion {
 	@GeneratedValue
 	int id;
 	
+	
 	String patente;
 	String marca;
 	int capacidad;
 	int capActual;
 
-	@OneToOne
-    @JoinColumn(name="ubicacion_id")
-	Ubicacion geoposicion;
+    Double latGeoposicion;
+    Double longGeoposicion;
+	
 	boolean activo;
+	
 
 	public Camion() {
 		super();
 	}
 
-	public Camion(String patente, String marca, int capacidad, int capActual, Ubicacion geoposicion, boolean activo) {
-		super();
-		this.patente = patente;
-		this.marca = marca;
-		this.capacidad = capacidad;
-		this.capActual = capActual;
-		this.geoposicion = geoposicion;
-		this.activo = activo;
-	}
-	
 	public int getId() {
 		return this.id;
 	}
@@ -77,19 +74,33 @@ public class Camion {
 		this.capActual =0;
 	}
 
-	public Ubicacion getGeoposicion() {
-		return geoposicion;
+	public Double getLatGeoposicion() {
+		return latGeoposicion;
 	}
 
-	public void setGeoposicion(Ubicacion geoposicion) {
-		this.geoposicion = geoposicion;
+	public void setLatGeoposicion(Double latgeoposicion) {
+		latGeoposicion = latgeoposicion;
 	}
 
+	public Double getLongGeoposicion() {
+		return longGeoposicion;
+	}
+
+	public void setLongGeoposicion(Double longeoposicion) {
+		longGeoposicion = longeoposicion;
+	}
+    public double geoDistancia(Double lat,Double longi) {
+		return Math.sqrt(Math.pow(Math.abs(lat-this.getLatGeoposicion()), 2)+Math.pow(Math.abs(longi-this.getLongGeoposicion()), 2));
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Camion [id=" + id + ", patente=" + patente + ", marca=" + marca + ", capacidad=" + capacidad
-				+ ", capActual=" + capActual + ", geoposicion=" + geoposicion + ", activo=" + activo + "]";
+				+ ", capActual=" + capActual + ", Latgeoposicion=" + latGeoposicion + ", Longeoposicion="
+				+ longGeoposicion + ", activo=" + activo + "]";
 	}
-	
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.practicoEspecial;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -41,9 +42,13 @@ public class Donacion {
 	public Residuo getReciclable() {
 		return reciclable;
 	}
-
 	public void setReciclable(Residuo reciclable) {
 		this.reciclable = reciclable;
+	}
+
+	public void setReciclable(int id) {
+		Residuo res=ResiduoDAO.getInstance().findById(id);
+		this.reciclable = res;
 	}
 
 	public int getCant() {
@@ -60,6 +65,15 @@ public class Donacion {
 
 	public void setOng(Ong ong) {
 		this.ong = ong;
+	}
+	public void setOng(int id) {
+		Ong ong=OngDAO.getInstance().findById(id);
+		this.ong = ong;
+	}
+
+	@Override
+	public String toString() {
+		return "Donacion [id=" + id + ", reciclable=" + reciclable + ", cant=" + cant + ", ong=" + ong + "]";
 	}
 
 }

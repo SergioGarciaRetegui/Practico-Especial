@@ -1,8 +1,13 @@
 package com.practicoEspecial;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class UsuarioDAO implements DAO<Usuario,Integer>{
 
@@ -43,6 +48,23 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 		List<Usuario> usuarios=entityManager.createQuery("SELECT u FROM Usuario u").getResultList();
 		entityManager.close();
 		return usuarios;
+	}
+	
+	public List<Recoleccion> recoleccionesPorGeolocalizacion(int id) {
+      List<Recoleccion> result = new ArrayList();
+      EntityManager entityManager=EMF.createEntityManager();
+	  Usuario user= entityManager.find(Usuario.class, id);
+	  List<Camion> camiones=CamionDAO.getInstance().findAll();
+      Iterator itCamion=camiones.iterator();
+      Recoleccion recorr;
+      while (itCamion.hasNext()) {
+    	  Camion aux=(Camion)itCamion.next();
+    	  recorr=RecoleccionDAO.getInstance().findByIdCamionAndGeopoUser(aux.getId(),user.getLatGeoposicion(),user.getLongGeoposicion());
+          result.add(recorr);
+      }
+	  entityManager.close();
+      return result;		
+      
 	}
 
 	@Override

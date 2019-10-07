@@ -4,6 +4,7 @@ package com.practicoEspecial;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -43,6 +44,10 @@ public class Acopio {
 	public void setReciclable(Residuo reciclable) {
 		this.reciclable = reciclable;
 	}
+	public void setReciclable(int id) {
+		Residuo res=ResiduoDAO.getInstance().findById(id);
+		this.reciclable = res;
+	}
 	public int getCant() {
 		return cant;
 	}
@@ -61,12 +66,21 @@ public class Acopio {
 	public void setUser(Usuario user) {
 		this.user = user;
 	}
-	public PuntoLimpio getPuntlimpio() {
+	public void setUser(int id) {
+		Usuario us=UsuarioDAO.getInstance().findById(id);
+		this.user = us;
+	}
+    public PuntoLimpio getPuntlimpio() {
 		return puntlimpio;
 	}
 	public void setPuntlimpio(PuntoLimpio puntolimpio) {
 		this.puntlimpio = puntolimpio;
 	}
+	public void setPuntlimpio(int id) {
+		PuntoLimpio pl=PuntoLimpioDAO.getInstance().findById(id);
+		this.puntlimpio = pl;
+	}
+
 	@Override
 	public String toString() {
 		return "Acopio [id=" + id + ", reciclable=" + reciclable + ", cant=" + cant + "Kg , fechaAcopio=" + fechaAcopio
