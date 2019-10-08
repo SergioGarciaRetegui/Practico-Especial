@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -68,9 +69,8 @@ public class testAcopio {
     crearRecolecciones();
     crearAcopios();
     crearDonaciones();
-	}
-	*/
-	
+	}*/
+	/*
 	@Test
 	public void BorrarDB() {
 	      List<Usuario> us=UsuarioDAO.getInstance().findAll();
@@ -129,7 +129,7 @@ public class testAcopio {
 	      }
 
 	}
-
+*/
 	/*
 	@Test
 	public void testlistados() {
@@ -637,4 +637,77 @@ public class testAcopio {
 		}
 	}
 //-----------------------------------------------------------------------
+	@Test
+	public void testVolumenAlcanzado() {
+		PuntoLimpio pl=PuntoLimpioDAO.getInstance().findById(7);
+		if (pl!=null) {
+		if (PuntoLimpioDAO.getInstance().capacidadAlcanzada(7)) {
+			System.out.println("El Punto limpio "+pl.getNombre()+" llego al tope de su capacidad");
+		}
+		else {
+			System.out.println("El Punto limpio "+pl.getNombre()+" aun no llego al tope de su capacidad");
+		}
+		}
+		else {
+			System.out.println("El Punto limpio no existe");
+		}
+	}
+//-----------------------------------------------------------------------
+	@Test
+	public void testAhorroByIdUser() {
+		Usuario user=UsuarioDAO.getInstance().findById(2);
+		int cant=0;
+		if (user!=null) {
+			List<Acopio> acopios =AcopioDAO.getInstance().findByIdUsuario(user.getId());
+			if (acopios.size()>0) {
+				Iterator itacopio=acopios.iterator();
+				Acopio aux;
+				while(itacopio.hasNext()) {
+					aux=(Acopio)itacopio.next();
+					cant+=aux.getCant();
+				}
+				System.out.println("El usuario "+user.getNombre()+" "+user.getApellido()+" ahorro "+cant+" kg en deposito de residuos");
+			}
+			else {
+				System.out.println("El usuario "+user.getNombre()+" "+user.getApellido()+" no realizo acopios");
+			}
+		}
+		else {
+			System.out.println("El Punto limpio no existe");
+		}
+	}
+
+//-----------------------------------------------------------------------
+	@Test
+	public void testAhorroByIdUserRangoFecha() {
+		Usuario user=UsuarioDAO.getInstance().findById(2);
+		int cant=0;
+		if (user!=null) {
+			List<Acopio> acopios =AcopioDAO.getInstance().findByIdUsuarioAndfechas(user.getId(), Date.valueOf("2019-08-31"), Date.valueOf("2019-10-31"));
+			if (acopios.size()>0) {
+				Iterator itacopio=acopios.iterator();
+				Acopio aux;
+				while(itacopio.hasNext()) {
+					aux=(Acopio)itacopio.next();
+					cant+=aux.getCant();
+				}
+				System.out.println("El usuario "+user.getNombre()+" "+user.getApellido()+" ahorro "+cant+" kg en deposito de residuos");
+			}
+			else {
+				System.out.println("El usuario "+user.getNombre()+" "+user.getApellido()+" no realizo acopios");
+			}
+		}
+		else {
+			System.out.println("El Punto limpio no existe");
+		}
+	}
+
+//-----------------------------------------------------------------------
+   @Test
+   public void TestConsultaAporteByIdUser() {
+	   Hashtable<String, Integer> result=UsuarioDAO.getInstance().aporteParaOngs(2);
+	   System.out.println("Consulta de total de Kg por residuos");
+	   System.out.println(result);
+	   
+   }
 }

@@ -36,6 +36,30 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 		entityManager.close();
 		return result;
 	}
+	
+	public List<Residuo>FindTipoDepositadosByID(int id){
+		EntityManager entityManager=EMF.createEntityManager();
+		List<Residuo> residuos=entityManager.createQuery("SELECT DISTINCT a.reciclable FROM Acopio a INNER JOIN a.user u WHERE u.id= :idUser").setParameter("idUser", id).getResultList();
+		entityManager.close();
+		return residuos;
+		
+	}
+
+	public int cantResidByIdUserAndIdResiduo(int idUser, int idRes){
+		EntityManager entityManager=EMF.createEntityManager();
+		Long result=(Long) entityManager.createQuery("SELECT SUM(a.cant) FROM Acopio a INNER JOIN a.user u ON (u.id= :idUser) INNER JOIN a.reciclable r ON(r.id=:idRes)").setParameter("idUser", idUser).setParameter("idRes",idRes).getSingleResult();
+		entityManager.close();
+		return result.intValue();
+		
+	}
+
+	public List<Residuo>FindTipoDepositadosByIDandFechas(int id,Date FechaI, Date FechaF){
+		EntityManager entityManager=EMF.createEntityManager();
+		List<Residuo> residuos=entityManager.createQuery("SELECT DISTINCT a.reciclable FROM Acopio a INNER JOIN a.user u WHERE u.id= :idUser AND a.fechaAcopio BETWEEN :f1 AND :f2").setParameter("idUser", id).setParameter("f1",FechaI).setParameter("f2",FechaF).getResultList();
+		entityManager.close();
+		return residuos;
+		
+	}
 
 	public List<Acopio> findByIdUsuarioAndfechas(Integer id,Date FechaI, Date FechaF){
 		EntityManager entityManager=EMF.createEntityManager();

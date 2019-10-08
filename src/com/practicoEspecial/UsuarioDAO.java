@@ -1,6 +1,7 @@
 package com.practicoEspecial;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -65,6 +66,22 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 	  entityManager.close();
       return result;		
       
+	}
+	public Hashtable<String, Integer> aporteParaOngs(int id) {
+		EntityManager entityManager=EMF.createEntityManager();
+		Usuario user=entityManager.find(Usuario.class, id);
+		entityManager.close();
+		List<Residuo> Residuos=AcopioDAO.getInstance().FindTipoDepositadosByID(user.getId());
+		Iterator itresiduo=Residuos.iterator();
+		Residuo auxres;
+		Hashtable<String, Integer> result= new Hashtable<String, Integer>(); 
+		int cant=0;
+		while(itresiduo.hasNext()) {
+			auxres=(Residuo)itresiduo.next();
+			cant=AcopioDAO.getInstance().cantResidByIdUserAndIdResiduo(user.getId(), auxres.getId());
+            result.put(auxres.getNombre(),cant*(int)auxres.getValorKg());			
+		}
+		return result;
 	}
 
 	@Override
