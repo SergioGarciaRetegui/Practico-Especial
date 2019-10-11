@@ -51,6 +51,7 @@ public class CamionDAO implements DAO<Camion,Integer>{
 		Camion camion=entityManager.find(Camion.class, id);
 		entityManager.getTransaction().begin();
         entityManager.remove(camion);
+        entityManager.clear();
         entityManager.getTransaction().commit();
 		entityManager.close();
 		return true;

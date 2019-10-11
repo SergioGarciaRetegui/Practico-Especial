@@ -77,6 +77,7 @@ public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 		Recoleccion recol=entityManager.find(Recoleccion.class, id);
 		entityManager.getTransaction().begin();
         entityManager.remove(recol);
+        entityManager.clear();
         entityManager.getTransaction().commit();
 		entityManager.close();
 		return true;

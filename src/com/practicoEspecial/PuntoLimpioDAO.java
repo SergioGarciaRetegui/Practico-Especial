@@ -58,6 +58,7 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 		PuntoLimpio pl=entityManager.find(PuntoLimpio.class, id);
 		entityManager.getTransaction().begin();
         entityManager.remove(pl);
+        entityManager.clear();
         entityManager.getTransaction().commit();
 		entityManager.close();
 		return true;

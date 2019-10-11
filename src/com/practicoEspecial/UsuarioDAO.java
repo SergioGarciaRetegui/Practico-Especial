@@ -86,9 +86,17 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 
 	@Override
 	public boolean delete(Integer id) {
-		throw new UnsupportedOperationException();
+		EntityManager entityManager=EMF.createEntityManager();
+		entityManager.getTransaction().begin();
+		Usuario user=entityManager.find(Usuario.class, id);
+        entityManager.remove(user);
+        entityManager.clear();
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
+	
 	@Override
 	public Usuario update(Integer id, Usuario entity) {
 		throw new UnsupportedOperationException();

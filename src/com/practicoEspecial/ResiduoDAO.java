@@ -64,6 +64,7 @@ public class ResiduoDAO implements DAO<Residuo,Integer>{
 		Residuo res=entityManager.find(Residuo.class, id);
 		entityManager.getTransaction().begin();
         entityManager.remove(res);
+        entityManager.clear();
         entityManager.getTransaction().commit();
 		entityManager.close();
 		return true;

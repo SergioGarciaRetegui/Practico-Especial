@@ -1,10 +1,15 @@
 package com.practicoEspecial;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 
 public class AcopioDAO implements DAO<Acopio,Integer>{
 
@@ -100,13 +105,52 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 		entityManager.close();
 		return Acopios;
 	}
+	public List<Resultado> RankingPL(){
+		List<Resultado> result=new ArrayList<Resultado>();
+		EntityManager entityManager=EMF.createEntityManager();
+		List<String> AcopioSt=entityManager.createQuery("SELECT p.nombre FROM Acopio a INNER JOIN a.puntlimpio p GROUP BY p.nombre ORDER BY SUM(a.cant)").getResultList();
+		List<Long> AcopioInt=entityManager.createQuery("SELECT SUM(a.cant) AS kg FROM Acopio a INNER JOIN a.puntlimpio p GROUP BY p.nombre ORDER BY SUM(a.cant) DESC").getResultList();
+		for(int i=0;i<AcopioInt.size();i++) {
+			Resultado aux=new Resultado("Punto Limpio",AcopioSt.get(i),"Cantidad",AcopioInt.get(i));
+			result.add(aux);
+		}
+		entityManager.close();
+		return result;
+	}
 
+	public List<Resultado> TotalResiduosProcesados(){
+		List<Resultado> result=new ArrayList<Resultado>();
+		EntityManager entityManager=EMF.createEntityManager();
+		List<String> AcopioSt=entityManager.createQuery("SELECT r.nombre FROM Acopio a INNER JOIN a.reciclable r GROUP BY r.nombre ORDER BY SUM(a.cant)").getResultList();
+		List<Long> AcopioInt=entityManager.createQuery("SELECT SUM(a.cant) AS kg FROM Acopio a INNER JOIN a.reciclable r GROUP BY r.nombre ORDER BY SUM(a.cant) DESC").getResultList();
+		for(int i=0;i<AcopioInt.size();i++) {
+			Resultado aux=new Resultado("Residuo",AcopioSt.get(i),"Cantidad (Kg)",AcopioInt.get(i));
+			result.add(aux);
+		}
+		entityManager.close();
+		return result;
+	}
+
+	public List<Resultado> TotalResiduosProcesadosByFecha(Date FechaI,Date FechaF){
+		List<Resultado> result=new ArrayList<Resultado>();
+		EntityManager entityManager=EMF.createEntityManager();
+		List<String> AcopioSt=entityManager.createQuery("SELECT r.nombre FROM Acopio a INNER JOIN a.reciclable r WHERE a.fechaAcopio BETWEEN :f1 AND :f2 GROUP BY r.nombre ORDER BY SUM(a.cant)").setParameter("f1",FechaI).setParameter("f2",FechaF).getResultList();
+		List<Long> AcopioInt=entityManager.createQuery("SELECT SUM(a.cant) AS kg FROM Acopio a INNER JOIN a.reciclable r WHERE a.fechaAcopio BETWEEN :f1 AND :f2 GROUP BY r.nombre ORDER BY SUM(a.cant) DESC").setParameter("f1",FechaI).setParameter("f2",FechaF).getResultList();
+		for(int i=0;i<AcopioInt.size();i++) {
+			Resultado aux=new Resultado("Residuo",AcopioSt.get(i),"Cantidad (Kg)",AcopioInt.get(i));
+			result.add(aux);
+		}
+		entityManager.close();
+		return result;
+	}
+	
 	@Override
 	public boolean delete(Integer id) {
 		EntityManager entityManager=EMF.createEntityManager();
 		Acopio acopio=entityManager.find(Acopio.class, id);
 		entityManager.getTransaction().begin();
         entityManager.remove(acopio);
+        entityManager.clear();
         entityManager.getTransaction().commit();
 		entityManager.close();
 		return true;
@@ -118,4 +162,46 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 	}
 
 
+
+public class Resultado{
+	String Campo;
+	String ValorCampo;
+	String CampoValor;
+	Long Valor;
+	public Resultado(String c,String vc,String cv,Long v) {
+		this.Campo=c;
+		this.ValorCampo=vc;
+		this.CampoValor=cv;
+		this.Valor=v;
+	}
+	public void setCampo(String c) {
+		this.Campo=c;
+	}
+	public void setValor(Long v) {
+		this.Valor=v;
+	}
+	public void setValorCampo(String c) {
+		this.ValorCampo=c;
+	}
+	public void setCampoValor(String v) {
+		this.CampoValor=v;
+	}
+	public String getValorCampo() {
+		return this.ValorCampo;
+	}
+	public String getCampoValor() {
+		return this.CampoValor;
+	}
+	public String getCampo() {
+		return this.Campo;
+	}
+	public Long getValor() {
+		return this.Valor;
+	}
+
+	@Override
+	public String toString() {
+		return "{"+this.Campo+ ": "+this.ValorCampo+" - "+this.CampoValor+": "+this.Valor+"}";
+	}
+}
 }
