@@ -51,6 +51,7 @@ public class OngDAO  implements DAO<Ong,Integer>{
 		Ong ong=entityManager.find(Ong.class, id);
 		entityManager.getTransaction().begin();
         entityManager.remove(ong);
+        entityManager.clear();
         entityManager.getTransaction().commit();
 		entityManager.close();
 		return true;

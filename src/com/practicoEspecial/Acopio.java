@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Acopio {
@@ -17,7 +21,8 @@ public class Acopio {
 	@GeneratedValue
 	int id;
 	
-	@OneToOne
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="residuo_id")
     Residuo reciclable;
     
@@ -25,11 +30,13 @@ public class Acopio {
 	
 	Date fechaAcopio;
     
-    @OneToOne
+    @ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="usuario_id")
     Usuario user;
     
-    @OneToOne
+    @ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="puntolimpio_id")
 	PuntoLimpio puntlimpio;
 	

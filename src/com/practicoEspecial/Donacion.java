@@ -1,11 +1,17 @@
 package com.practicoEspecial;
 
+import java.sql.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Donacion {
@@ -15,13 +21,16 @@ public class Donacion {
 	@GeneratedValue
 	int id;
 	
-	@OneToOne
+	@ManyToOne 
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="residuo_id")
 	Residuo reciclable;
 	
 	int cant;
+	Date fecha;
 	
-	@OneToOne
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="ong_id")
 	Ong ong;
 	
@@ -71,9 +80,18 @@ public class Donacion {
 		this.ong = ong;
 	}
 
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
 	@Override
 	public String toString() {
-		return "Donacion [id=" + id + ", reciclable=" + reciclable + ", cant=" + cant + ", ong=" + ong + "]";
+		return "Donacion [id=" + id + ", reciclable=" + reciclable + ", cant=" + cant + ", fecha=" + fecha + ", ong="
+				+ ong + "]";
 	}
 
 }

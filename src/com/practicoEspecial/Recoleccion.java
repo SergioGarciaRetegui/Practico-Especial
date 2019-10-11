@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Recoleccion {
@@ -24,11 +28,13 @@ public class Recoleccion {
 
 	String dia;
 
-    @OneToOne 	
+    @ManyToOne 
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="camion_id")
 	Camion camionRecolector;
 	
-    @OneToOne
+    @ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="puntoLimpio_id")
 	PuntoLimpio puntoRecoleccion;
 	
