@@ -29,12 +29,10 @@ public class Recoleccion {
 	String dia;
 
     @ManyToOne 
-	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="camion_id")
 	Camion camionRecolector;
 	
     @ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="puntoLimpio_id")
 	PuntoLimpio puntoRecoleccion;
 	

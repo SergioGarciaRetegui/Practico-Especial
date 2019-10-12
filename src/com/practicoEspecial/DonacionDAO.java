@@ -75,6 +75,14 @@ public class DonacionDAO  implements DAO<Donacion,Integer>{
 		return result;
 	}
 
+	public int deleteAll() {
+		EntityManager entityManager=EMF.createEntityManager();
+		entityManager.getTransaction().begin();
+		int result=entityManager.createQuery("DELETE FROM Donacion").executeUpdate();
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return result;
+	}
 	@Override
 	public boolean delete(Integer id) {
 		EntityManager entityManager=EMF.createEntityManager();

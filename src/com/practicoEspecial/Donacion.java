@@ -22,7 +22,6 @@ public class Donacion {
 	int id;
 	
 	@ManyToOne 
-	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="residuo_id")
 	Residuo reciclable;
 	
@@ -30,7 +29,6 @@ public class Donacion {
 	Date fecha;
 	
 	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="ong_id")
 	Ong ong;
 	

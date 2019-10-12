@@ -143,7 +143,15 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 		entityManager.close();
 		return result;
 	}
-	
+	public int deleteAll() {
+		EntityManager entityManager=EMF.createEntityManager();
+		entityManager.getTransaction().begin();
+		int result=entityManager.createQuery("DELETE FROM Acopio").executeUpdate();
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return result;
+	}
+
 	@Override
 	public boolean delete(Integer id) {
 		EntityManager entityManager=EMF.createEntityManager();

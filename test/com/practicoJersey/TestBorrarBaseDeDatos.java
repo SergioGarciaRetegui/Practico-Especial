@@ -53,65 +53,14 @@ public class TestBorrarBaseDeDatos {
 
 	@Test
 	public void BorrarDB() {
-          List<Usuario> us=UsuarioDAO.getInstance().findAll();
-	      Iterator itUs=us.iterator();
-	      while (itUs.hasNext()) {
-	    	  Usuario auxUs=(Usuario)itUs.next();
-	    	  UsuarioDAO.getInstance().delete(auxUs.getId());
-	      }
-
-	      List<PuntoLimpio> pl=PuntoLimpioDAO.getInstance().findAll();
-	      Iterator itPl=pl.iterator();
-	      while (itPl.hasNext()) {
-	    	  PuntoLimpio auxpl=(PuntoLimpio)itPl.next();
-	    	  PuntoLimpioDAO.getInstance().delete(auxpl.getId());
-	      }
-	      List<Ong> ongs=OngDAO.getInstance().findAll();
-	      Iterator itong=ongs.iterator();
-	      while (itong.hasNext()) {
-	    	  Ong ong=(Ong)itong.next();
-	    	  OngDAO.getInstance().delete(ong.getId());
-	      }
- 
-	      List<Residuo> Resids=ResiduoDAO.getInstance().findAll();
-	      Iterator itres=Resids.iterator();
-	      while (itres.hasNext()) {
-	    	  Residuo res=(Residuo)itres.next();
-	    	  ResiduoDAO.getInstance().delete(res.getId());
-	      }
-
-	      List<Camion> Camions=CamionDAO.getInstance().findAll();
-	      Iterator itCamion=Camions.iterator();
-	      while (itCamion.hasNext()) {
-	    	  Camion aux=(Camion)itCamion.next();
-	    	  CamionDAO.getInstance().delete(aux.getId());
-	      }
-
-	      List<Recoleccion> recols=RecoleccionDAO.getInstance().findAll();
-	      Iterator itrecol=recols.iterator();
-	      while (itrecol.hasNext()) {
-	    	  Recoleccion aux=(Recoleccion)itrecol.next();
-	    	  RecoleccionDAO.getInstance().delete(aux.getId());
-	      }
-
-	      List<Acopio> acopios=AcopioDAO.getInstance().findAll();
-	      Iterator itacopio=acopios.iterator();
-	      while (itacopio.hasNext()) {
-	    	  Acopio aux=(Acopio)itacopio.next();
-	    	  AcopioDAO.getInstance().delete(aux.getId());
-	      }
-
-	      List<Donacion> donaciones=DonacionDAO.getInstance().findAll();
-	      Iterator itdonacion=donaciones.iterator();
-	      while (itdonacion.hasNext()) {
-	    	  Donacion aux=(Donacion)itdonacion.next();
-	    	  DonacionDAO.getInstance().delete(aux.getId());
-	      }
-
-	}
-	@Test
-	public void testlistados() {
-		System.out.println(UsuarioDAO.getInstance().findAll());
-	}
+		System.out.println("Usuarios borrados: "+UsuarioDAO.getInstance().deleteAll());
+		System.out.println("Punto limpio borrados: "+PuntoLimpioDAO.getInstance().deleteAll());
+		System.out.println("Camiones borrados: "+CamionDAO.getInstance().deleteAll());
+		System.out.println("Residuos borrados: "+ResiduoDAO.getInstance().deleteAll());
+		System.out.println("Ong borradas: "+OngDAO.getInstance().deleteAll());
+		System.out.println("Acopios borrados: "+AcopioDAO.getInstance().deleteAll());
+		System.out.println("Recolecciones borradas: "+RecoleccionDAO.getInstance().deleteAll());
+		System.out.println("Donaciones borradas: "+DonacionDAO.getInstance().deleteAll());
+	}	
 
 }

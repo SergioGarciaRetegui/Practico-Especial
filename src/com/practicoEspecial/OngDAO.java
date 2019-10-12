@@ -44,6 +44,14 @@ public class OngDAO  implements DAO<Ong,Integer>{
 		entityManager.close();
 		return Ongs;
 	}
+	public int deleteAll() {
+		EntityManager entityManager=EMF.createEntityManager();
+		entityManager.getTransaction().begin();
+		int result=entityManager.createQuery("DELETE FROM Ong").executeUpdate();
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return result;
+	}
 
 	@Override
 	public boolean delete(Integer id) {

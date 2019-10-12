@@ -57,6 +57,14 @@ public class ResiduoDAO implements DAO<Residuo,Integer>{
 		entityManager.close();
 		return residuos;
 	}
+	public int deleteAll() {
+		EntityManager entityManager=EMF.createEntityManager();
+		entityManager.getTransaction().begin();
+		int result=entityManager.createQuery("DELETE FROM Residuo").executeUpdate();
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return result;
+	}
 
 	@Override
 	public boolean delete(Integer id) {

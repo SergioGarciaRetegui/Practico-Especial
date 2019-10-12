@@ -51,6 +51,14 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 		entityManager.close();
 		return pl.getKgAcumulados()>= pl.getKgTope();
 	}
+	public int deleteAll() {
+		EntityManager entityManager=EMF.createEntityManager();
+		entityManager.getTransaction().begin();
+		int result=entityManager.createQuery("DELETE FROM PuntoLimpio").executeUpdate();
+        entityManager.getTransaction().commit();
+		entityManager.close();
+		return result;
+	}
 
 	@Override
 	public boolean delete(Integer id) {
