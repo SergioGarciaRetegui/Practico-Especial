@@ -306,13 +306,4 @@ public class AcopioDAO implements DAO<Acopio,Integer>{
 	}
 
 
-/**
- * Clase auxiliar para contener los datos del resultado de una consulta
- * Atributos:
- * Campo : Identificador String del campo a registrar (Ejemplo: residuo)
- * ValorCampo: Valor que toma el campo a registrar (Ejemplo Vidrio).
- * Campo Valor: Contiene el descriptor de un campo numerico a regsitrar (Ejemplo: Kg ).
- * Valor: Valor numerico del dato registrado en Campo valor (Ej 50). 
- * 
- */
 }
