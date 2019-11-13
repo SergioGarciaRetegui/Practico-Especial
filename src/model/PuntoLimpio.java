@@ -1,10 +1,13 @@
-package com.practicoEspecial;
+package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-
+/**
+ * Esta clase define objetos que representa los PuntoLimpio en donde depositar los residuos
+ * de los cuales es importante registarar su geoposicion, capacidad de almacenamiento como atributos principales  
+ */
 @Entity
 public class PuntoLimpio {
 
@@ -19,7 +22,17 @@ public class PuntoLimpio {
 	String Calle;
 	int numero;
 
+	/**
+     * Datos de Geoposicion de un PuntoLimpio
+     */
+	/**
+	 * latGeoposicion representa la latitud en geoposicion
+	 */
+
     Double latGeoposicion;
+	/**
+	 * longGeoposicion representa la longitud en geoposicion
+	 */
     Double longGeoposicion;
 
 	public PuntoLimpio() {

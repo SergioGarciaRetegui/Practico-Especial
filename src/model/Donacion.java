@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package model;
 
 import java.sql.Date;
 
@@ -13,6 +13,13 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import dao.OngDAO;
+import dao.ResiduoDAO;
+
+/**
+ * Define objetos que representan a donaciones realizadas a una Ong detallando el tipo y cantidad
+ * de residuo reciclabe donado.
+ */
 @Entity
 public class Donacion {
 
@@ -21,6 +28,11 @@ public class Donacion {
 	@GeneratedValue
 	int id;
 	
+	/**
+	 * referencia al tipo de residuo donado a la ONG
+	 * 
+	 * @see Residuo.java
+	 */
 	@ManyToOne 
     @JoinColumn(name="residuo_id")
 	Residuo reciclable;
@@ -28,6 +40,12 @@ public class Donacion {
 	int cant;
 	Date fecha;
 	
+	/**
+	 * referencia a la Ong destinataria de la donacion.
+	 * 
+	 * @see Ong.java
+	 * 
+	 */
 	@ManyToOne
     @JoinColumn(name="ong_id")
 	Ong ong;

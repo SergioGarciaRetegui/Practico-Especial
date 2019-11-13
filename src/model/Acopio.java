@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package model;
 
 
 
@@ -15,12 +15,23 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import dao.PuntoLimpioDAO;
+import dao.ResiduoDAO;
+import dao.UsuarioDAO;
+/**
+ * Esta clase instancia los depositos de residuos realizados por un usuario.
+ * 
+ */
 @Entity
 public class Acopio {
 	@Id
 	@GeneratedValue
 	int id;
 	
+	/**
+	 * Corresponde al id del residuo depositado en la instacia acopio.
+	 * @see Residuo.java
+	 */
 	@ManyToOne
     @JoinColumn(name="residuo_id")
     Residuo reciclable;
@@ -29,10 +40,21 @@ public class Acopio {
 	
 	Date fechaAcopio;
     
+	/**
+	 * Corresponde al identificador del usuario que realizo el acopio
+	 * 
+	 * @see Usuario.java
+	 */
     @ManyToOne
     @JoinColumn(name="usuario_id")
     Usuario user;
     
+    /**
+     * Corresponde al PuntoLimpio en donde se realizo el acopio.
+     * 
+     * @see PuntoLimpio.java
+     * 
+     */
     @ManyToOne
     @JoinColumn(name="puntolimpio_id")
 	PuntoLimpio puntlimpio;

@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package model;
 
 import java.sql.Time;
 import java.util.Date;
@@ -15,6 +15,14 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import dao.CamionDAO;
+import dao.PuntoLimpioDAO;
+
+/**
+ * Esta clase define objetos que representan los puntos de recoleccion 
+ * contiene referencias al camion que realizara la recoleccion, al punto limpio en donde se llevara a cabo
+ * y al rango de hora a la cual se hara efectiva la recoleccion en dicho punto. 
+ */
 @Entity
 public class Recoleccion {
 
@@ -28,10 +36,20 @@ public class Recoleccion {
 
 	String dia;
 
-    @ManyToOne 
+	/**
+	 * Referencia al camion que realizara la recoleccion
+	 * 
+	 * @see Camion.java
+	 */
+	@ManyToOne 
     @JoinColumn(name="camion_id")
 	Camion camionRecolector;
 	
+	/**
+	 * Referencia al punto limpio en donde se realizara la recoleccion
+	 * 
+	 * @see PuntoLimpio.java
+	 */
     @ManyToOne
     @JoinColumn(name="puntoLimpio_id")
 	PuntoLimpio puntoRecoleccion;

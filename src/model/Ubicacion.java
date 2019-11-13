@@ -1,6 +1,9 @@
-package com.practicoEspecial;
+package model;
 
-
+/**
+ * Esta clase define objetos del tipo geoposicion, las instancias de esta clase no son persistidas
+ * en la base de datos, su importancia se basa en el uso de metodos referidoa a la geoposicion.
+ */
 public class Ubicacion {
 
 	private double latitud;
@@ -26,6 +29,11 @@ public class Ubicacion {
 	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
+	
+	/**
+	 * Devuelve la distancia desde la instracia misma de una ubicacion 
+	 * hasta la ubicacion pasada por parametro. 
+	 */
 	public double distancia(Ubicacion u) {
 		return Math.sqrt(Math.pow(Math.abs(u.getLatitud()-this.getLatitud()), 2)+Math.pow(Math.abs(u.getLongitud()-this.getLongitud()), 2));
 	}

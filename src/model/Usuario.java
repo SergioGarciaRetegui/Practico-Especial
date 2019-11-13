@@ -1,10 +1,13 @@
-package com.practicoEspecial;
+package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-
+/**
+ * Define objetos que representan los usarios del sistema los cuales realizaran los acopios de residuos en los Puntolimpios de la ciudad. 
+ * ademas de persistir sus datos principales se registra su geoposicion la cual da acceso a varios servicios.
+ */
 @Entity
 public class Usuario {
 	@Id
@@ -18,7 +21,16 @@ public class Usuario {
     String calle;
     int numero;
 
+    /**
+     * Datos de Geoposicion de un Camion
+     */
+	/**
+	 * latGeoposicion representa la latitud en geoposicion
+	 */
     Double latGeoposicion;
+	/**
+	 * longGeoposicion representa la longitud en geoposicion
+	 */
     Double longGeoposicion;
 
     

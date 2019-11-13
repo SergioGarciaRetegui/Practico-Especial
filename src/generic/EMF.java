@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package generic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

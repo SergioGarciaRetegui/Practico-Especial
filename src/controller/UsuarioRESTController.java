@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package controller;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -14,17 +14,30 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import dao.UsuarioDAO;
+import model.Usuario;
+import generic.RecursoNoExiste;
+import generic.RecursoDuplicado;
+
 
 @Path("/usuarios")
 public class UsuarioRESTController {
 
-	
+	/**
+	 * Retorna un listado de los Usuarios guardados en la base de datos.
+	 * 
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Usuario> getAllUsuarios() {
 		return UsuarioDAO.getInstance().findAll();
 	}
-	
+
+	/**
+	 * Retorna un usuario segun su id pasado como parametro.
+	 * 
+	 * @param id Identificador unico de un usuario en la base de datos.
+	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +49,12 @@ public class UsuarioRESTController {
 		else
 			throw new RecursoNoExiste(id);
 	}
-	
+
+	/**
+	 * Da de alta un usuario en la base de datos
+	 * 
+	 * @param recibe por POST un Json con los datos de usuario.
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -49,13 +67,30 @@ public class UsuarioRESTController {
 		}
 	}
 
+	/**
+	 * Borra un usuario de la base de Datos conforme el id.
+	 *
+	 * @param id Identificador de un usuario en la base de datos.
+	 */
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteUsuario(@PathParam("id") int id) {
-		throw new UnsupportedOperationException();
-	}
+		boolean res=UsuarioDAO.getInstance().delete(id);
+		if (res) {
+			return Response.status(201).entity("usuario borrado").build();
+		}
+		else
+				throw new RecursoNoExiste(id);
+		}
 	
+	
+	/**
+	 * Actualiza los datos de un usuario segun su id
+	 * 
+	 * @param id Identificador de un usuario en la base de datos.
+	 * 
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -64,19 +99,4 @@ public class UsuarioRESTController {
 		throw new UnsupportedOperationException();
 	}
 
-	public class RecursoDuplicado extends WebApplicationException {
-	     public RecursoDuplicado(int id) {
-	         super(Response.status(Response.Status.CONFLICT)
-	             .entity("El recurso con ID "+id+" ya existe").type(MediaType.TEXT_PLAIN).build());
-	     }
-	}
-	
-	public class RecursoNoExiste extends WebApplicationException {
-	     public RecursoNoExiste(int id) {
-	         super(Response.status(Response.Status.NOT_FOUND)
-	             .entity("El recurso con id "+id+" no fue encontrado").type(MediaType.TEXT_PLAIN).build());
-	     }
-	}
-	
-	
 }

@@ -1,9 +1,18 @@
-package com.practicoEspecial;
+package dao;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import generic.DAO;
+import generic.EMF;
+import model.PuntoLimpio;
+
+/**
+ * Esta clase gestiona el acceso a la base de datos de los Punto Limpio, 
+ * es el intermediario de las consultas relacionadas a los Punto Limpio.
+ * 
+ */
 public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 
 	private static PuntoLimpioDAO daoPuntoLimpio;
@@ -11,12 +20,21 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 	private PuntoLimpioDAO() {
 	}
 
+	/** 
+	* devuelve una unica instancia de la clase PuntoLimpioDAO, si no existe la crea, si ya esta creada devuelve la instancia
+	* 
+	*/
 	public static PuntoLimpioDAO getInstance() {
 		if(daoPuntoLimpio==null)
 			daoPuntoLimpio=new PuntoLimpioDAO();
 		return daoPuntoLimpio;
 	}
 
+	/**
+	 * Devuelve un PuntoLimpio persistido en la base de datos segun un id
+	 * 
+	 * @param id Identificador unico de un PuntoLimpio.
+	 */
 	@Override
 	public PuntoLimpio findById(Integer id) {
 		
@@ -27,6 +45,12 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 	
 	}
 
+	/**
+	 * Persiste en la base de datos un objeto PuntoLimpio.
+	 * 
+	 * @param camion Es una Instancia de la clase PuntoLimpio la cual se quiere persistir en la base
+	 * 
+	 */
 	@Override
 	public PuntoLimpio persist(PuntoLimpio pl) {
 		EntityManager entityManager=EMF.createEntityManager();
@@ -37,6 +61,10 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 		return pl;
 	}
 
+	/**
+	 * Retorna un listado de todos los PuntoLimpio persistidos en la base de datos
+	 * 
+	 */
 	@Override
 	public List<PuntoLimpio> findAll() {
 		EntityManager entityManager=EMF.createEntityManager();
@@ -45,12 +73,22 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 		return PuntoLimpios;
 	}
 
+	/**
+	 * Verifica si un PuntoLimpio llego al limite de su capacidad de almacenamiento
+	 * 
+	 * @return Retorna True si el limite fue alcanzado o False en caso contario.
+	 */
 	public boolean capacidadAlcanzada(int id) {
 		EntityManager entityManager=EMF.createEntityManager();
 		PuntoLimpio pl=entityManager.find(PuntoLimpio.class, id);
 		entityManager.close();
 		return pl.getKgAcumulados()>= pl.getKgTope();
 	}
+
+	/**
+	 * Borra todos los PuntoLImpio persistidos en la base de datos 
+	 * 
+	 */	
 	public int deleteAll() {
 		EntityManager entityManager=EMF.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -60,6 +98,11 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 		return result;
 	}
 
+	/**
+	 * Borra un PuntoLimpio especifico de la base de datos
+	 * 
+	 * @param id Identificador de un PuntoLimpio.
+	 */
 	@Override
 	public boolean delete(Integer id) {
 		EntityManager entityManager=EMF.createEntityManager();
@@ -72,6 +115,12 @@ public class PuntoLimpioDAO implements DAO<PuntoLimpio,Integer>{
 		return true;
 	}
 
+	/**
+	 * Actualiza un PuntoLimpio en la base de datos
+	 * 
+	 * @param id identificador de un PuntoLimpio.
+	 * @param entity Instancia de la clase PuntoLimpio la cual contiene los valores a actualizar 
+	 */
 	@Override
 	public PuntoLimpio update(Integer id, PuntoLimpio entity) {
 		throw new UnsupportedOperationException();

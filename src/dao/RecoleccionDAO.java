@@ -1,9 +1,19 @@
-package com.practicoEspecial;
+package dao;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+
+import generic.DAO;
+import generic.EMF;
+import model.Recoleccion;
+
+/**
+ * Esta clase gestiona el acceso a la base de datos de los Recoleccion, 
+ * es el intermediario de las consultas relacionadas a los Recolecciones.
+ * 
+ */
 
 public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 
@@ -12,12 +22,21 @@ public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 	private RecoleccionDAO() {
 	}
 
+	/** 
+	* Devuelve una unica instancia de la clase RecoleccionDAO, si no existe la crea, si ya esta creada devuelve la instancia
+	* 
+	*/
 	public static RecoleccionDAO getInstance() {
 		if(daoRecoleccion==null)
 			daoRecoleccion=new RecoleccionDAO();
 		return daoRecoleccion;
 	}
 
+	/**
+	 * Devuelve una Recoleccion persistida en la base de datos segun un id
+	 * 
+	 * @param id Identificador unico de una Recoleccion.
+	 */
 	@Override
 	public Recoleccion findById(Integer id) {
 		
@@ -28,6 +47,12 @@ public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 	
 	}
 
+	/**
+	 * Persiste en la base de datos un objeto Recoleccion.
+	 * 
+	 * @param rec Es una Instancia de la clase Recoleccion la cual se quiere persistir en la base
+	 * 
+	 */
 	@Override
 	public Recoleccion persist(Recoleccion rec) {
 		EntityManager entityManager=EMF.createEntityManager();
@@ -38,6 +63,10 @@ public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 		return rec;
 	}
 
+	/**
+	 * Retorna un listado de todas las Recolecciones persistidas en la base de datos
+	 * 
+	 */
 	@Override
 	public List<Recoleccion> findAll() {
 		EntityManager entityManager=EMF.createEntityManager();
@@ -46,6 +75,14 @@ public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 		return Recolecciones;
 	}
 
+	/**
+	 * Retorna el punto de recoleccion mas cercana a uan geoposicion dada y un camion. 
+	 * 
+	 * @param idCam Identifica un Camion.
+	 * @param lat  Latitud de una geoposicion
+	 * @param longi Longitud de una geoposicion.
+	 * 
+	 */
 	public Recoleccion findByIdCamionAndGeopoUser(int idCam,Double lat,Double longi) {
 		EntityManager entityManager=EMF.createEntityManager();
 		Recoleccion result=null;
@@ -70,6 +107,12 @@ public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 		entityManager.close();
 		return result;
 	}
+
+	
+	/**
+	 * Borra todos las Recolecciones persistidos en la base de datos 
+	 * 
+	 */	
 	public int deleteAll() {
 		EntityManager entityManager=EMF.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -79,18 +122,30 @@ public class RecoleccionDAO implements DAO<Recoleccion,Integer>{
 		return result;
 	}
 	
+	/**
+	 * Borra una Recoleccion especifica de la base de datos
+	 * 
+	 * @param id Identificador de una Recoleccion.
+	 */
 	@Override
 	public boolean delete(Integer id) {
 		EntityManager entityManager=EMF.createEntityManager();
-		Recoleccion recol=entityManager.find(Recoleccion.class, id);
 		entityManager.getTransaction().begin();
-        entityManager.remove(recol);
-        entityManager.clear();
-        entityManager.getTransaction().commit();
+		int result=entityManager.createQuery("DELETE FROM Recoleccion r WHERE r.id= :id").setParameter("id", id).executeUpdate();
+		entityManager.getTransaction().commit();
 		entityManager.close();
-		return true;
+		if (result ==0)
+   		    return false;
+		else 
+			return true;
 	}
 
+	/**
+	 * Actualiza una Recoleccion en la base de datos
+	 * 
+	 * @param id identificador de una Recoleccion.
+	 * @param entity Instancia de la clase Recoleccion la cual contiene los valores a actualizar 
+	 */
 	@Override
 	public Recoleccion update(Integer id, Recoleccion entity) {
 		throw new UnsupportedOperationException();

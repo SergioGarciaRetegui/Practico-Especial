@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package controller;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -14,17 +14,33 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import dao.ResiduoDAO;
+import generic.RecursoDuplicado;
+import generic.RecursoNoExiste;
+import model.Residuo;
+
 
 @Path("/Residuos")
 public class ResiduoRESTController  {
 
-	
+	/**
+	 * Retorna un listado de los Residuos guardados en la base de datos.
+	 * 
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Residuo> getAllResiduos() {
 		return ResiduoDAO.getInstance().findAll();
 	}
 	
+	
+	/**
+	 * Retorna un residuo segun su id pasado como parametro.
+	 * 
+	 * @param id Identificador unico de un residuo en la base de datos.
+	 * 
+	 * @return Retorna un Json conteniendo los datos del residuo solicitado
+	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +52,12 @@ public class ResiduoRESTController  {
 		else
 			throw new RecursoNoExiste(id);
 	}
-
+	
+	/**
+	 * Dado un nombre retorna verdadero o falso segun si se corresponde con un residuo persistido en la base. 
+	 *
+	 * @param name Un string con el nombre de residuo.
+	 */
 	@GET
 	@Path("/{name}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -45,7 +66,11 @@ public class ResiduoRESTController  {
      
 	}
 
-	
+	/**
+	 * Da de alta un residuo en la base de datos
+	 * 
+	 * @param recibe  por POST un Json con los datos de residuo.
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -58,6 +83,11 @@ public class ResiduoRESTController  {
 		}
 	}
 
+	/**
+	 * Borra un residuo de la base de Datos conforme el id.
+	 *
+	 * @param id Identificador de un residuo en la base de datos.
+	 */
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -65,6 +95,12 @@ public class ResiduoRESTController  {
 		throw new UnsupportedOperationException();
 	}
 	
+	/**
+	 * Actualiza los datos de un residuo segun su id
+	 * 
+	 * @param id Identificador de un residuo en la base de datos.
+	 * 
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -73,19 +109,6 @@ public class ResiduoRESTController  {
 		throw new UnsupportedOperationException();
 	}
 
-	public class RecursoDuplicado extends WebApplicationException {
-	     public RecursoDuplicado(int id) {
-	         super(Response.status(Response.Status.CONFLICT)
-	             .entity("El recurso con ID "+id+" ya existe").type(MediaType.TEXT_PLAIN).build());
-	     }
-	}
-	
-	public class RecursoNoExiste extends WebApplicationException {
-	     public RecursoNoExiste(int id) {
-	         super(Response.status(Response.Status.NOT_FOUND)
-	             .entity("El recurso con id "+id+" no fue encontrado").type(MediaType.TEXT_PLAIN).build());
-	     }
-	}
-	
+
 	
 }

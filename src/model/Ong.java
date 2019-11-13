@@ -1,9 +1,11 @@
-package com.practicoEspecial;
+package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+/**
+ * Define objetos que representan las Ong beneficiadas por los reciduos reciclados.
+ */
 @Entity
 public class Ong {
 

@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-@Entity
 
+/**
+ * Define objetos del tipo Camion persistiendo sus datos principales marca, patente, capacidad y geoposicion
+ */
+@Entity
 public class Camion {
 	@Id
 	@GeneratedValue
@@ -23,7 +26,15 @@ public class Camion {
 	int capacidad;
 	int capActual;
 
-    Double latGeoposicion;
+    /**
+     * Datos de Geoposicion de un Camion
+     * 
+ 	 * latGeoposicion representa la latitud en geoposicion
+	 */
+	Double latGeoposicion;
+	/**
+	 * longGeoposicion representa la longitud en geoposicion
+	 */
     Double longGeoposicion;
 	
 	boolean activo;

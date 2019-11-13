@@ -2,20 +2,20 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="Practico-Especial">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>com.practicoEspecial.Acopio</class>
-		<class>com.practicoEspecial.Camion</class>
-		<class>com.practicoEspecial.Donacion</class>
-		<class>com.practicoEspecial.Ong</class>
-		<class>com.practicoEspecial.PuntoLimpio</class>
-		<class>com.practicoEspecial.Recoleccion</class>
-		<class>com.practicoEspecial.Residuo</class>
-		<class>com.practicoEspecial.Usuario</class>
+		<class>model.Acopio</class>
+		<class>model.Camion</class>
+		<class>model.Donacion</class>
+		<class>model.Ong</class>
+		<class>model.PuntoLimpio</class>
+		<class>model.Recoleccion</class>
+		<class>model.Residuo</class>
+		<class>model.Usuario</class>
 			
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
 
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:derby:C:/Users/Natalia/Documents/sergio/arq web/Practico-Jersey/MyDataBase5;create=true" />
+				value="jdbc:derby:C:\Users\Natalia\eclipse-workspace2\Practico-Especial/MyDataBase;create=true" />
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="javax.persistence.schema-generation.create-database-schemas" value="false"/>
 			

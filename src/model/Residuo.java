@@ -1,9 +1,12 @@
-package com.practicoEspecial;
+package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+/**
+ * Define objetos que representan los residuos reciclados, es importante su nombre y su valor de 
+ * referencia por Kg.
+ */
 @Entity
 public class Residuo {
 

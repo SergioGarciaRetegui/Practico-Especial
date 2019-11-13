@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package dao;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -10,6 +10,19 @@ import javax.persistence.EntityManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import generic.DAO;
+import generic.EMF;
+import model.Camion;
+import model.Recoleccion;
+import model.Residuo;
+import model.Usuario;
+
+/**
+ * Esta clase gestiona el acceso a la base de datos de los Usuarios, 
+ * es el intermediario de las consultas relacionadas a los Usuarios.
+ * 
+ * 
+ */
 public class UsuarioDAO implements DAO<Usuario,Integer>{
 
 	private static UsuarioDAO daoUsuario;
@@ -17,12 +30,21 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 	private UsuarioDAO() {
 	}
 
+	/** 
+	* Devuelve una unica instancia de la clase UsuarioDAO, si no existe la crea, si ya esta creada devuelve la instancia
+	* 
+	*/
 	public static UsuarioDAO getInstance() {
 		if(daoUsuario==null)
 			daoUsuario=new UsuarioDAO();
 		return daoUsuario;
 	}
 
+	/**
+	 * Devuelve un usuario persistido en la base de datos segun un id
+	 * 
+	 * @param id Identificador unico de un Usuario.
+	 */
 	@Override
 	public Usuario findById(Integer id) {
 		
@@ -33,6 +55,12 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 	
 	}
 
+	/**
+	 * Persiste en la base de datos un objeto Usuario.
+	 * 
+	 * @param user Es una Instancia de la clase Usuario la cual se quiere persistir en la base
+	 * 
+	 */
 	@Override
 	public Usuario persist(Usuario user) {
 		EntityManager entityManager=EMF.createEntityManager();
@@ -43,6 +71,10 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 		return user;
 	}
 
+	/**
+	 * Retorna un listado de todos los Usuarios persistidos en la base de datos
+	 * 
+	 */
 	@Override
 	public List<Usuario> findAll() {
 		EntityManager entityManager=EMF.createEntityManager();
@@ -51,6 +83,11 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 		return usuarios;
 	}
 	
+	/**
+	 * Retorna un listado de todos los puntos de recolecion mas cercanos a un Usuario segun su geoposicion
+	 * 
+	 * @param id Identificador de Usuario.
+	 */
 	public List<Recoleccion> recoleccionesPorGeolocalizacion(int id) {
       List<Recoleccion> result = new ArrayList();
       EntityManager entityManager=EMF.createEntityManager();
@@ -67,6 +104,14 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
       return result;		
       
 	}
+	
+	/**
+	 * Retorna para un usuario los residuos depositados y el equivalente en $ de sus deposiciones.
+	 * 
+	 * @param id Identificador de un Usuario
+	 * 
+	 * @return Hastable<String,Integer> retorna una tabla con los pares residuos y dinero equivalente.
+	 */
 	public Hashtable<String, Integer> aporteParaOngs(int id) {
 		EntityManager entityManager=EMF.createEntityManager();
 		Usuario user=entityManager.find(Usuario.class, id);
@@ -83,6 +128,12 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * Borra todos los Usuarios persistidos en la base de datos 
+	 * 
+	 */	
 	public int deleteAll() {
 		EntityManager entityManager=EMF.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -92,19 +143,31 @@ public class UsuarioDAO implements DAO<Usuario,Integer>{
 		return result;
 	}
 
+	/**
+	 * Borra un Usuario especifico de la base de datos
+	 * 
+	 * @param id Identificador de un Usuario.
+	 */
 	@Override
 	public boolean delete(Integer id) {
 		EntityManager entityManager=EMF.createEntityManager();
 		entityManager.getTransaction().begin();
-		Usuario user=entityManager.find(Usuario.class, id);
-        entityManager.remove(user);
-        entityManager.clear();
-        entityManager.getTransaction().commit();
+		int result=entityManager.createQuery("DELETE FROM Usuario u WHERE u.id= :id").setParameter("id", id).executeUpdate();
+		entityManager.getTransaction().commit();
 		entityManager.close();
-		return true;
+		if (result ==0)
+   		    return false;
+		else 
+			return true;
 	}
 
 	
+	/**
+	 * Actualiza un Usuario en la base de datos
+	 * 
+	 * @param id identificador de un Usuario.
+	 * @param entity Instancia de la clase Usuario la cual contiene los valores a actualizar 
+	 */
 	@Override
 	public Usuario update(Integer id, Usuario entity) {
 		throw new UnsupportedOperationException();

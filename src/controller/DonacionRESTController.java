@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package controller;
 
 import java.util.List;
 
@@ -15,17 +15,31 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import dao.DonacionDAO;
+import generic.RecursoDuplicado;
+import generic.RecursoNoExiste;
+import model.Donacion;
+
 @Path("/Donacions")
 
 public class DonacionRESTController {
 
 	
+	/**
+	 * Retorna un listado de las Donaciones guardadas en la base de datos.
+	 * 
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Donacion> getAllDonacions() {
 		return DonacionDAO.getInstance().findAll();
 	}
 	
+	/**
+	 * Retorna una Donacion segun su id pasado como parametro.
+	 * 
+	 * @param id Identificador unico de una Donacion en la base de datos.
+	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -38,6 +52,11 @@ public class DonacionRESTController {
 			throw new RecursoNoExiste(id);
 	}
 	
+	/**
+	 * Da de alta una donacion en la base de datos
+	 * 
+	 * @param recibe por POST un Json con los datos de una Donacion.
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -50,6 +69,11 @@ public class DonacionRESTController {
 		}
 	}
 
+	/**
+	 * Borra una Donacion de la base de Datos conforme el id.
+	 *
+	 * @param id Identificador de una Donacion en la base de datos.
+	 */
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -57,6 +81,12 @@ public class DonacionRESTController {
 		throw new UnsupportedOperationException();
 	}
 	
+	/**
+	 * Actualiza los datos de una Donacion segun su id
+	 * 
+	 * @param id Identificador de una Donacion en la base de datos.
+	 * 
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -65,19 +95,5 @@ public class DonacionRESTController {
 		throw new UnsupportedOperationException();
 	}
 
-	public class RecursoDuplicado extends WebApplicationException {
-	     public RecursoDuplicado(int id) {
-	         super(Response.status(Response.Status.CONFLICT)
-	             .entity("El recurso con ID "+id+" ya existe").type(MediaType.TEXT_PLAIN).build());
-	     }
-	}
-	
-	public class RecursoNoExiste extends WebApplicationException {
-	     public RecursoNoExiste(int id) {
-	         super(Response.status(Response.Status.NOT_FOUND)
-	             .entity("El recurso con id "+id+" no fue encontrado").type(MediaType.TEXT_PLAIN).build());
-	     }
-	}
-	
 	
 }

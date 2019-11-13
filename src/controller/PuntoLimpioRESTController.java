@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package controller;
 
 import java.util.List;
 
@@ -15,15 +15,29 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import dao.PuntoLimpioDAO;
+import generic.RecursoDuplicado;
+import generic.RecursoNoExiste;
+import model.PuntoLimpio;
+
 @Path("/PuntosLimpios")
 public class PuntoLimpioRESTController {
 	
+	/**
+	 * Retorna un listado de los Punto Limpios guardados en la base de datos.
+	 * 
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<PuntoLimpio> getAllPuntoLimpios() {
 		return PuntoLimpioDAO.getInstance().findAll();
 	}
 	
+	/**
+	 * Retorna un Punto Limpio segun su id pasado como parametro.
+	 * 
+	 * @param id Identificador unico de un Punto Limpio en la base de datos.
+	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -36,6 +50,11 @@ public class PuntoLimpioRESTController {
 			throw new RecursoNoExiste(id);
 	}
 	
+	/**
+	 * Da de alta un Punto Limpio en la base de datos
+	 * 
+	 * @param recibe un por POST un Json con los datos de Punto Limpio.
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -48,6 +67,11 @@ public class PuntoLimpioRESTController {
 		}
 	}
 
+	/**
+	 * Borra un Punto Limpio de la base de Datos conforme el id.
+	 *
+	 * @param id Identificador de un Punto Limpio en la base de datos.
+	 */
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -55,26 +79,18 @@ public class PuntoLimpioRESTController {
 		throw new UnsupportedOperationException();
 	}
 	
+	/**
+	 * Actualiza los datos de un Punto limpio segun su id
+	 * 
+	 * @param id Identificador de un Punto Limpio en la base de datos.
+	 * 
+	 */
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updatePuntoLimpio(@PathParam("id") int id,PuntoLimpio pl) {
 		throw new UnsupportedOperationException();
-	}
-
-	public class RecursoDuplicado extends WebApplicationException {
-	     public RecursoDuplicado(int id) {
-	         super(Response.status(Response.Status.CONFLICT)
-	             .entity("El recurso con ID "+id+" ya existe").type(MediaType.TEXT_PLAIN).build());
-	     }
-	}
-	
-	public class RecursoNoExiste extends WebApplicationException {
-	     public RecursoNoExiste(int id) {
-	         super(Response.status(Response.Status.NOT_FOUND)
-	             .entity("El recurso con id "+id+" no fue encontrado").type(MediaType.TEXT_PLAIN).build());
-	     }
 	}
 	
 	

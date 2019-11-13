@@ -1,4 +1,4 @@
-package com.practicoEspecial;
+package generic;
 
 import java.io.Serializable;
 import java.util.List;
