@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.practicoEspecial.AcopioDAO;
-import com.practicoEspecial.CamionDAO;
-import com.practicoEspecial.DonacionDAO;
-import com.practicoEspecial.EMF;
-import com.practicoEspecial.OngDAO;
-import com.practicoEspecial.PuntoLimpioDAO;
-import com.practicoEspecial.RecoleccionDAO;
-import com.practicoEspecial.ResiduoDAO;
-import com.practicoEspecial.UsuarioDAO;
+import dao.AcopioDAO;
+import dao.CamionDAO;
+import dao.DonacionDAO;
+import dao.OngDAO;
+import dao.PuntoLimpioDAO;
+import dao.RecoleccionDAO;
+import dao.ResiduoDAO;
+import dao.UsuarioDAO;
+import generic.EMF;
 
 public class TestListadoBaseDeDatos {
 

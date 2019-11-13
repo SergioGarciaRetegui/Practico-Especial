@@ -18,24 +18,24 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.practicoEspecial.Acopio;
-import com.practicoEspecial.AcopioDAO;
-import com.practicoEspecial.Camion;
-import com.practicoEspecial.CamionDAO;
-import com.practicoEspecial.Donacion;
-import com.practicoEspecial.DonacionDAO;
-import com.practicoEspecial.EMF;
-import com.practicoEspecial.Ong;
-import com.practicoEspecial.OngDAO;
-import com.practicoEspecial.PuntoLimpio;
-import com.practicoEspecial.PuntoLimpioDAO;
-import com.practicoEspecial.Recoleccion;
-import com.practicoEspecial.RecoleccionDAO;
-import com.practicoEspecial.Residuo;
-import com.practicoEspecial.ResiduoDAO;
-import com.practicoEspecial.Ubicacion;
-import com.practicoEspecial.Usuario;
-import com.practicoEspecial.UsuarioDAO;
+import dao.AcopioDAO;
+import dao.CamionDAO;
+import dao.DonacionDAO;
+import dao.OngDAO;
+import dao.PuntoLimpioDAO;
+import dao.RecoleccionDAO;
+import dao.ResiduoDAO;
+import dao.UsuarioDAO;
+import generic.EMF;
+import model.Acopio;
+import model.Camion;
+import model.Donacion;
+import model.Ong;
+import model.PuntoLimpio;
+import model.Recoleccion;
+import model.Residuo;
+import model.Ubicacion;
+import model.Usuario;
 
 public class testConsultasVarias {
 

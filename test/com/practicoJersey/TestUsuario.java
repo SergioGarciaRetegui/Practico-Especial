@@ -13,12 +13,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.practicoEspecial.Acopio;
-import com.practicoEspecial.AcopioDAO;
-import com.practicoEspecial.EMF;
-import com.practicoEspecial.Recoleccion;
-import com.practicoEspecial.Usuario;
-import com.practicoEspecial.UsuarioDAO;
+import dao.AcopioDAO;
+import dao.UsuarioDAO;
+import generic.EMF;
+import model.Acopio;
+import model.Recoleccion;
+import model.Usuario;
 
 public class TestUsuario {
 
@@ -47,7 +47,7 @@ public class TestUsuario {
 		System.out.println("--------------------------------------");
 		System.out.println("**************************************");
 		System.out.println("--------------------------------------");
-		listDatosUsuario(4);
+		listDatosUsuario(3);
 		System.out.println("--------------------------------------");
 		System.out.println("**************************************");
 		System.out.println("--------------------------------------");
