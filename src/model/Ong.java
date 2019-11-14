@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 /**
- * Define objetos que representan las Ong beneficiadas por los reciduos reciclados.
+ * Define objetos que representan las Ong beneficiadas por los residuos reciclados.
  */
 @Entity
 public class Ong {
